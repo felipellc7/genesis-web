@@ -20,11 +20,12 @@
       "@Config/*": ["src/config/*"],
       "@Css/*": ["src/assets/css/*"],
       "@Helpers/*": ["src/helpers/*"],
+      "@Hoc/*": ["src/hoc/*"],
       "@Hooks/*": ["src/hooks/*"],
       "@Images/*": ["src/assets/images/*"],
       "@Interfaces/*": ["src/interfaces/*"],
       "@Pages/*": ["pages/*"],
-      "@Services/*": ["services/*"],
+      "@Services/*": ["src/services/*"],
       "@Types/*": ["src/types/*"],
     }
   },

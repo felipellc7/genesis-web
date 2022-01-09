@@ -1,6 +1,7 @@
 import App from "next/app";
 import type { AppProps, AppContext } from 'next/app'
 import Head from 'next/head'
+import SessionWrapper from "@Hoc/SessionWrapper";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -10,15 +11,18 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="description" content="This project if focused on SENA" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Component {...pageProps} />
+      <SessionWrapper>
+        <Component {...pageProps} />
+      </SessionWrapper>
     </>
   )
 }
 
-MyApp.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await App.getInitialProps(appContext);
-
-  return { ...appProps }
-}
+// MyApp.getInitialProps = async (appContext: AppContext) => {
+//   const {res, req}: any = appContext
+//   const appProps = await App.getInitialProps(appContext);
+//   console.log("Holaa", res)
+//   return { ...appProps }
+// }
 
 export default MyApp

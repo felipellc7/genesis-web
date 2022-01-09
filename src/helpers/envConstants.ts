@@ -1,0 +1,1 @@
+export const urlApiUsers = process.env.URL_API_USERS
