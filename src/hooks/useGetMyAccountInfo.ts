@@ -7,7 +7,7 @@ const useGetMyAccountInfo = () => {
   const {newCancelToken} = useCancelToken()
   let token: string
 
-  useEffect(() => getMyInfo(), [])
+  // useEffect(() => getMyInfo(), [])
   
   const getMyInfo = async () => {
     try {
