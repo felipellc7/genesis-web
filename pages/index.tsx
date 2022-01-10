@@ -1,7 +1,15 @@
 import type { NextPage } from 'next'
+import WithAuthSync from '@Hoc/WithAuthSync'
+import useLogin from "@Hooks/useLogin"
 
 const Home: NextPage = () => {
-  return <h1>Hello, Next.js!</h1>
+  const { onLogOut } = useLogin()
+  return (
+    <>
+      <h1>Hello, Next.js!</h1><br/>
+      <button onClick={() => onLogOut}>Salir!</button>
+    </>
+  )
 }
 
-export default Home
+export default WithAuthSync(Home)

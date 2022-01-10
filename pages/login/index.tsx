@@ -1,6 +1,25 @@
 import { useForm, Resolver } from 'react-hook-form';
 import useLogin from "@Hooks/useLogin"
 import SessionWrapper from "@Hoc/SessionWrapper"
+import WithAuthSync from '@Hoc/WithAuthSync'
+import { GetServerSideProps } from 'next'
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}: any) => {
+  const {cookies} = req
+  console.log("cookies", cookies)
+  if (cookies.token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props:{},
+    };
+  }
+
+  return { props: {  } }
+}
+
 
 type FormValues = {
   user: string;

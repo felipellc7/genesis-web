@@ -1,24 +1,36 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ICredentials } from "@Interfaces/authInterface"
 import { authenticateUser } from "@Services/authServices"
 import useCancelToken from "./useCancelToken"
+import Cookies from 'js-cookie'
+import Router from 'next/router';
+import { onLogOut } from "@Hoc/WithAuthSync"
 
 const useLogin = () => {
+  const [token, setToken] = useState<string>("")
   const {newCancelToken} = useCancelToken()
+
+  useEffect(() => setTokenOnCookies(), [token])
   
   const onLogin = async (credentials: ICredentials) => {
     try {
-      const response = await authenticateUser(credentials, newCancelToken())
-      console.log(response)
-      
+      const {data: {message: {access_token}}} = await authenticateUser(credentials, newCancelToken())
+      setToken(access_token)
+      Router.push("/")
     } catch (error) {
-      console.log(error)
-      
+      console.log(error) 
     }
-
   }
+
+  const setTokenOnCookies = () => {
+    if (token) {
+      Cookies.set("token", token)
+    }
+  }
+
   return {
-    onLogin
+    onLogin,
+    onLogOut
   }
 
 }
