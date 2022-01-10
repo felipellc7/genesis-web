@@ -7,21 +7,21 @@ export const onLogOut = () => {
   Router.push('/login')
 }
 
-export const auth = ({req, res}: any) => {
-  const token = Cookies.get("token")
-  console.log(token)
-
-  // If there's no token, it means the user is not logged in.
-  if (!token) {
-    if (typeof window === 'undefined') {
-      res.writeHead(302, { Location: '/login' })
-      res.end()
-    } else {
-      Router.push('/login')
+export const auth = async ({req, res}: any) => {
+  try {
+    const { token } = await req?.cookies
+    if (!token) {
+      if (typeof window === 'undefined') {
+        res.writeHead(302, { Location: '/login' })
+        res.end()
+      } else {
+        Router.push('/login')
+      }
     }
+    return token
+  } catch (error) {
+    return null
   }
-
-  return token
 }
 
 const WithAuthSync = (WrappedComponent: any) => {
@@ -45,8 +45,7 @@ const WithAuthSync = (WrappedComponent: any) => {
   }
 
   Wrapper.getInitialProps = async (ctx: any) => {
-    const token = auth(ctx)
-    console.log("tokensito", token)
+    const token = await auth(ctx)
 
     const componentProps =
       WrappedComponent.getInitialProps &&

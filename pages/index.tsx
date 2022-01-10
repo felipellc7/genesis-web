@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <>
       <h1>Hello, Next.js!</h1><br/>
-      <button onClick={() => onLogOut}>Salir!</button>
+      <button onClick={() => onLogOut()}>Salir!</button>
     </>
   )
 }
