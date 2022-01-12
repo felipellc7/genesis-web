@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react"
 import { ICredentials } from "@Interfaces/authInterface"
 import { authenticateUser } from "@Services/authServices"
-import useCancelToken from "./useCancelToken"
+import useTokenSettings from "./useTokenSettings"
 import Cookies from 'js-cookie'
 import Router from 'next/router';
 import { onLogOut } from "@Hoc/WithAuthSync"
 
 const useLogin = () => {
   const [token, setToken] = useState<string>("")
-  const {newCancelToken} = useCancelToken()
+  const {newCancelToken} = useTokenSettings()
 
   useEffect(() => setTokenOnCookies(), [token])
   

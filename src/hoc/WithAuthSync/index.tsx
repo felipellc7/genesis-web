@@ -1,7 +1,12 @@
 import Cookies from "js-cookie"
 import { validateToken } from "@Services/authServices"
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
+export const onLogOut = () => {
+  Cookies.remove("token");
+  Router.replace("/login");
+}
 
 const WithAuthSync = (WrappedComponent: any) => {
   return (props: any) => {
@@ -26,8 +31,7 @@ const WithAuthSync = (WrappedComponent: any) => {
         }
       } catch (error) {
         // If the token was fraud we first remove it from localStorage and then redirect to "/"
-        Cookies.remove("token");
-        Router.replace("/login");
+        onLogOut()
       }
     }
 

@@ -1,8 +1,10 @@
 
-import { useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import axios, { CancelToken, CancelTokenSource } from "axios"
+import Cookies from "js-cookie"
 
-const useCancelToken = () => {
+const useTokenSettings = () => {
+  const [token] = useState<any>(Cookies.get("token"))
   const axiosSource = useRef<CancelTokenSource>()
 
   const newCancelToken = (): CancelToken => {
@@ -20,7 +22,8 @@ const useCancelToken = () => {
   return {
     newCancelToken,
     isCancel: axios.isCancel,
+    token
   }
 }
 
-export default useCancelToken
+export default useTokenSettings

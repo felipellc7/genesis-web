@@ -18,7 +18,7 @@ export async function authenticateUser(credentials: ICredentials, cancelToken: C
 
 export async function validateToken(token: string): Promise<AxiosResponse> {
   tokenAuth(token)
-	const url: any =  `${urlApiUsers}/me`
+	const url: any =  `${urlApiUsers}/validate_token`
 	let result = await axiosClient.get(url, {
 		headers
 	})

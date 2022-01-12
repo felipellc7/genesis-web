@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
 import { myAccountInfo } from "@Services/userServices"
-import useCancelToken from "./useCancelToken"
+import useTokenSettings from "@Hooks/useTokenSettings"
 import useLogin from "@Hooks/useLogin"
 
-const useSessionValidator = (token: string) => {
+const useMyAccountInfo = () => {
   const [user, setUser] = useState<any>()
-  const {newCancelToken} = useCancelToken()
+  const {token, newCancelToken} = useTokenSettings()
   const { onLogOut } = useLogin()
 
   useEffect(() => {
@@ -27,4 +27,4 @@ const useSessionValidator = (token: string) => {
 
 }
 
-export default useSessionValidator
+export default useMyAccountInfo
