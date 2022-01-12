@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react"
 import { myAccountInfo } from "@Services/userServices"
 import useCancelToken from "./useCancelToken"
+import useLogin from "@Hooks/useLogin"
 
-const useGetMyAccountInfo = () => {
+const useSessionValidator = (token: string) => {
   const [user, setUser] = useState<any>()
   const {newCancelToken} = useCancelToken()
-  let token: string
+  const { onLogOut } = useLogin()
 
-  // useEffect(() => getMyInfo(), [])
+  useEffect(() => {
+    getMyInfo()
+  }, [token])
   
   const getMyInfo = async () => {
     try {
-      const response = await myAccountInfo(token, newCancelToken())
-      console.log(response)
-      
+      const {data: {message}} = await myAccountInfo(token, newCancelToken())
+      setUser(message)
     } catch (error) {
-      console.log(error)
+      onLogOut()
     }
   }
   
@@ -25,4 +27,4 @@ const useGetMyAccountInfo = () => {
 
 }
 
-export default useGetMyAccountInfo
+export default useSessionValidator
