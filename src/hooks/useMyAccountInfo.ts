@@ -20,11 +20,7 @@ const useMyAccountInfo = () => {
       onLogOut()
     }
   }
-  
-  return {
-    user
-  }
-
+  return user
 }
 
 export default useMyAccountInfo
